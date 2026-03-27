@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Estudos FUVEST</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- MENU SUPERIOR -->
+    <header class="header-nav">
+        <div class="logo">
+            📚 FUVEST Prep
+        </div>
+        <nav class="nav-links">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="calendario.html" class="nav-link">Calendário</a>
+            <a href="conteudos.html" class="nav-link">Matérias</a>
+            <a href="chat.html" class="nav-link active">chat</a>
+        </nav>
+    </header>
+
+    <!-- CONTEÚDO CENTRAL -->
+    <main class="main-container">
+        <div class="content-box">
+            <!-- HERO SECTION -->
+            <section class="hero">
+                <h1 class="titulo-principal">Bem-vindo ao seu centro de estudos!</h1>
+                <p class="subtitulo">Esta é sua página inicial para organizar a preparação para a FUVEST.</p>
+                
+                <div class="acoes-rapidas">
+                    <h2 class="titulo-acoes">O que você gostaria de fazer hoje?</h2>
+                    
+                    <div class="botoes-container">
+                        <div class="botao-wrapper">
+                            <a href="calendario.html" class="botao-acao botao-calendario">
+                                📅 Registrar meu estudo de hoje
+                            </a>
+                        </div>
+                        
+                        <div class="botao-wrapper">
+                            <a href="conteudos.html" class="botao-acao botao-conteudos">
+                                📋 Ver conteúdos pendentes
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RESUMO RÁPIDO -->
+            <section class="resumo-rapido">
+                <h3 class="titulo-resumo">⚡ Resumo Rápido</h3>
+                <ul class="lista-resumo">
+                    <li class="item-resumo">
+                        <strong class="label-resumo">Hoje é:</strong> 
+                        <span id="hoje" class="valor-resumo"></span>
+                    </li>
+                    <li class="item-resumo">
+                        <strong class="label-resumo">Próxima tarefa:</strong> 
+                        <span class="valor-resumo">Revisar função quadrática</span>
+                    </li>
+                    <li class="item-resumo">
+                        <strong class="label-resumo">Dica:</strong> 
+                        <span class="valor-resumo">Faça pausas de 5 minutos a cada 25 minutos de estudo</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- SEÇÃO DE DESTAQUE -->
+            <section class="destaque">
+                <div class="card-destaque">
+                    <h3 class="titulo-destaque">🎯 Foco na FUVEST</h3>
+                    <p class="texto-destaque">A prova da FUVEST exige consistência nos estudos. Use o calendário para manter seu ritmo e a lista de conteúdos para garantir que nada fique para trás.</p>
+                </div>
+                
+                <div class="card-destaque">
+                    <h3 class="titulo-destaque">📊 Seu Progresso</h3>
+                    <p class="texto-destaque">Acompanhe sua evolução visualmente. Cada dia de estudo conta para sua aprovação!</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="rodape">
+        <p class="mensagem-rodape">Foco na aprovação! 💪</p>
+        <p class="link-rodape">
+            <a href="calendario.html" class="link-acao">Acesse seu calendário agora →</a>
+        </p>
+    </footer>
+
+    <script>
+        // Data atual
+        const hoje = new Date();
+        const formatado = hoje.toLocaleDateString('pt-BR', { 
+            weekday: 'long', 
+            day: 'numeric', 
+            month: 'long' 
+        });
+        document.getElementById('hoje').textContent = formatado.charAt(0).toUpperCase() + formatado.slice(1);
+        
+        // Alternar tema
+    const themeToggle = document.createElement('button');
+    themeToggle.className = 'theme-toggle';
+    themeToggle.innerHTML = '🌙';
+    themeToggle.title = 'Alternar tema claro/escuro';
+    
+    document.querySelector('.nav-links').appendChild(themeToggle);
+    
+    // Verificar tema salvo ou preferência do sistema
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const savedTheme = localStorage.getItem('theme') || 
+                      (prefersDark.matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeToggle.innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
+    
+    // Alternar tema ao clicar
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        themeToggle.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('theme', newTheme);
+    });
+    
+    // Atualizar tema quando a preferência do sistema mudar
+    prefersDark.addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            const newTheme = e.matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            themeToggle.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+    });
+
+    </script>
+</body>
+</html>

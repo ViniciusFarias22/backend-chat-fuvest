@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUVEST Prep - Chat de Estudos</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos específicos para o chat simples */
+        .chat-simples {
+            display: flex;
+            flex-direction: column;
+            height: 550px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        .chat-header-simples {
+            background: var(--accent-gradient);
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        
+        .chat-header-simples h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .chat-header-simples p {
+            margin: 5px 0 0;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .chat-messages-simples {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background-color: var(--bg-color);
+        }
+        
+        .message-simples {
+            max-width: 85%;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .message-simples.user {
+            align-self: flex-end;
+        }
+        
+        .message-simples.user .message-content {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 18px 18px 5px 18px;
+        }
+        
+        .message-simples.bot .message-content {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            padding: 10px 14px;
+            border-radius: 18px 18px 18px 5px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .message-content {
+            word-wrap: break-word;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .message-content strong {
+            color: var(--primary-color);
+        }
+        
+        .message-content ul, .message-content ol {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+        
+        .message-content li {
+            margin: 5px 0;
+        }
+        
+        .chat-input-simples {
+            padding: 15px;
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input-simples input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-input-simples input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+        }
+        
+        .chat-input-simples button {
+            padding: 12px 24px;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .chat-input-simples button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .chat-input-simples button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .sugestoes-simples {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .sugestoes-simples h3 {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+        
+        .sugestoes-grid-simples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .sugestao-simples {
+            padding: 6px 12px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+        
+        .sugestao-simples:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+        
+        .typing-indicator-simples {
+            display: flex;
+            gap: 4px;
+            padding: 8px 12px;
+        }
+        
+        .typing-indicator-simples span {
+            width: 6px;
+            height: 6px;
+            background-color: var(--text-color);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-indicator-simples span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator-simples span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Status do servidor */
+        .server-status {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        .server-status.online {
+            background-color: #4caf50;
+            box-shadow: 0 0 5px #4caf50;
+        }
+        
+        .server-status.offline {
+            background-color: #f44336;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        .status-text {
+            font-size: 0.75rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            justify-content: center;
+        }
+        
+        @media (max-width: 768px) {
+            .chat-simples { height: 500px; }
+            .message-simples { max-width: 95%; }
+            .sugestoes-grid-simples { flex-direction: column; }
+            .sugestao-simples { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-nav">
+        <div class="logo">
+            📚 FUVEST Prep
+        </div>
+        <nav class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="calendario.html" class="nav-link">Calendário</a>
+            <a href="conteudos.html" class="nav-link">Matérias</a>
+            <a href="chat.html" class="nav-link active">Chat</a>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <div class="content-box">
+            <h1>📖 Assistente de Estudos</h1>
+            <p style="text-align: center; margin-bottom: 20px;">Tire dúvidas sobre matérias ou peça questões para praticar!</p>
+            
+            <div class="chat-simples">
+                <div class="chat-header-simples">
+                    <h2>💬 Professor Virtual</h2>
+                    <p>Matemática | Português | Física | Química | Biologia | História | Geografia</p>
+                </div>
+                
+                <div class="chat-messages-simples" id="chatMessages">
+                    <div class="message-simples bot">
+                        <div class="message-content">
+                            👋 Olá! Sou seu assistente de estudos.<br><br>
+                            Posso ajudar com:
+                            <br>• 📚 Explicar conteúdos escolares
+                            <br>• ✏️ Criar questões para você resolver
+                            <br>• 💡 Dar dicas de estudo
+                            <br><br>
+                            Como posso te ajudar hoje?
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-input-simples">
+                    <input type="text" id="userInput" placeholder="Ex: Explique função quadrática ou Me dê uma questão sobre porcentagem" />
+                    <button id="sendButton">Enviar</button>
+                </div>
+            </div>
+            
+            <div class="status-text" id="statusText">
+                <span class="server-status" id="serverStatus"></span>
+                <span id="statusMessage">Verificando conexão com o servidor...</span>
+            </div>
+            
+            <div class="sugestoes-simples">
+                <h3>💡 Sugestões:</h3>
+                <div class="sugestoes-grid-simples">
+                    <button class="sugestao-simples" data-pergunta="Explique o que é função quadrática">📐 Função quadrática</button>
+                    <button class="sugestao-simples" data-pergunta="Me dê uma questão de matemática sobre porcentagem">✏️ Questão de porcentagem</button>
+                    <button class="sugestao-simples" data-pergunta="Explique a Primeira Guerra Mundial">🌍 1ª Guerra Mundial</button>
+                    <button class="sugestao-simples" data-pergunta="Me dê uma questão de física sobre cinemática">⚡ Questão de cinemática</button>
+                    <button class="sugestao-simples" data-pergunta="Como fazer uma boa redação?">✍️ Dicas de redação</button>
+                    <button class="sugestao-simples" data-pergunta="Explique mitose e meiose">🧬 Mitose e meiose</button>
+                    <button class="sugestao-simples" data-pergunta="Me dê uma questão de química sobre balanceamento">🧪 Balanceamento químico</button>
+                    <button class="sugestao-simples" data-pergunta="Qual a diferença entre célula animal e vegetal?">🔬 Célula animal vs vegetal</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Configuração - Agora usando o backend local
+        const API_URL = 'http://localhost:8000/chat';
+        const HEALTH_URL = 'http://localhost:8000/health';
+        
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+        const serverStatus = document.getElementById('serverStatus');
+        const statusMessage = document.getElementById('statusMessage');
+        
+        // Histórico da conversa
+        let conversationHistory = [];
+        let isProcessing = false;
+        
+        // Função para atualizar status do servidor
+        async function updateServerStatus() {
+            try {
+                const response = await fetch(HEALTH_URL);
+                if (response.ok) {
+                    serverStatus.className = 'server-status online';
+                    statusMessage.textContent = '✅ Servidor conectado - Grok AI pronto!';
+                    return true;
+                } else {
+                    throw new Error('Servidor não respondeu corretamente');
+                }
+            } catch (error) {
+                serverStatus.className = 'server-status offline';
+                statusMessage.textContent = '❌ Servidor offline - Execute: cd backend && python main.py';
+                return false;
+            }
+        }
+        
+        // Função para formatar texto com markdown básico
+        function formatText(text) {
+            let formatted = text
+                // Negrito
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                // Itálico
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                // Listas não ordenadas
+                .replace(/^• (.*?)$/gm, '<li>$1</li>')
+                .replace(/(<li>.*?<\/li>)/s, '<ul>$1</ul>')
+                // Listas ordenadas
+                .replace(/^\d+\. (.*?)$/gm, '<li>$1</li>')
+                // Quebras de linha
+                .replace(/\n/g, '<br>');
+            
+            return formatted;
+        }
+        
+        // Função para adicionar mensagem
+        function addMessage(content, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message-simples ${isUser ? 'user' : 'bot'}`;
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            
+            if (isUser) {
+                messageContent.innerHTML = content.replace(/\n/g, '<br>');
+            } else {
+                messageContent.innerHTML = formatText(content);
+            }
+            
+            messageDiv.appendChild(messageContent);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Indicador de digitação
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message-simples bot';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `
+                <div class="message-content">
+                    <div class="typing-indicator-simples">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function hideTyping() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+        
+        // Enviar para o backend
+        async function sendToBackend(message) {
+            try {
+                // Adiciona mensagem do usuário ao histórico
+                conversationHistory.push({ role: 'user', content: message });
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        messages: conversationHistory,
+                        model: 'grok-4.1-fast',
+                        temperature: 0.7,
+                        max_tokens: 1500
+                    })
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || `Erro ${response.status}`);
+                }
+                
+                const data = await response.json();
+                const botResponse = data.response;
+                
+                // Adiciona resposta ao histórico
+                conversationHistory.push({ role: 'assistant', content: botResponse });
+                
+                // Limita histórico para não ficar muito grande (últimas 20 mensagens)
+                if (conversationHistory.length > 20) {
+                    conversationHistory = conversationHistory.slice(-20);
+                }
+                
+                addMessage(botResponse, false);
+                
+            } catch (error) {
+                console.error('Erro detalhado:', error);
+                
+                let errorMsg = '❌ Desculpe, tive um problema. ';
+                
+                if (error.message.includes('ECONNREFUSED') || error.message.includes('Failed to fetch')) {
+                    errorMsg += 'Não foi possível conectar ao servidor. Verifique se o backend está rodando com: python backend/main.py';
+                    updateServerStatus();
+                } else if (error.message.includes('504')) {
+                    errorMsg += 'O servidor demorou muito para responder. Tente novamente.';
+                } else if (error.message.includes('500')) {
+                    errorMsg += 'Erro interno no servidor. Verifique o console do backend.';
+                } else {
+                    errorMsg += error.message;
+                }
+                
+                addMessage(errorMsg, false);
+            }
+        }
+        
+        // Processar mensagem
+        async function handleMessage() {
+            if (isProcessing) {
+                addMessage('⏳ Aguarde a resposta anterior ser processada...', false);
+                return;
+            }
+            
+            const message = userInput.value.trim();
+            if (!message) return;
+            
+            // Verifica se o servidor está online antes de enviar
+            const isServerOnline = await updateServerStatus();
+            if (!isServerOnline) {
+                addMessage('❌ Servidor offline. Por favor, inicie o backend com: cd backend && python main.py', false);
+                return;
+            }
+            
+            isProcessing = true;
+            sendButton.disabled = true;
+            userInput.disabled = true;
+            
+            addMessage(message, true);
+            userInput.value = '';
+            
+            showTyping();
+            await sendToBackend(message);
+            hideTyping();
+            
+            isProcessing = false;
+            sendButton.disabled = false;
+            userInput.disabled = false;
+            userInput.focus();
+        }
+        
+        // Limpar conversa (opcional)
+        function clearConversation() {
+            if (confirm('Tem certeza que deseja limpar toda a conversa?')) {
+                conversationHistory = [];
+                chatMessages.innerHTML = `
+                    <div class="message-simples bot">
+                        <div class="message-content">
+                            👋 Olá! Sou seu assistente de estudos.<br><br>
+                            Posso ajudar com:
+                            <br>• 📚 Explicar conteúdos escolares
+                            <br>• ✏️ Criar questões para você resolver
+                            <br>• 💡 Dar dicas de estudo
+                            <br><br>
+                            Como posso te ajudar hoje?
+                        </div>
+                    </div>
+                `;
+                addMessage('✨ Conversa reiniciada! Como posso ajudar?', false);
+            }
+        }
+        
+        // Eventos
+        sendButton.addEventListener('click', handleMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !isProcessing) {
+                handleMessage();
+            }
+        });
+        
+        // Sugestões
+        document.querySelectorAll('.sugestao-simples').forEach(btn => {
+            btn.addEventListener('click', () => {
+                userInput.value = btn.getAttribute('data-pergunta');
+                handleMessage();
+            });
+        });
+        
+        // Verificar status do servidor a cada 10 segundos
+        updateServerStatus();
+        setInterval(updateServerStatus, 10000);
+        
+        // Alternar tema (igual ao das outras páginas)
+        const themeToggle = document.createElement('button');
+        themeToggle.className = 'theme-toggle';
+        themeToggle.innerHTML = '🌙';
+        themeToggle.title = 'Alternar tema';
+        
+        document.querySelector('.nav-links').appendChild(themeToggle);
+        
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        const savedTheme = localStorage.getItem('theme') || (prefersDark.matches ? 'dark' : 'light');
+        
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeToggle.innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
+        
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            themeToggle.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('theme', newTheme);
+        });
+        
+        // Adicionar botão de limpar conversa (opcional)
+        const clearButton = document.createElement('button');
+        clearButton.textContent = '🗑️ Limpar conversa';
+        clearButton.style.cssText = `
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        `;
+        clearButton.onclick = clearConversation;
+        
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.appendChild(clearButton);
+    </script>
+</body>
+</html>

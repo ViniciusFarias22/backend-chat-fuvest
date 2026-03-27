@@ -1,0 +1,959 @@
+/* ============================================
+   RESET E CONFIGURAÇÕES GERAIS
+   ============================================ */
+:root {
+    /* Cores modo claro */
+    --bg-color: #f5f7fa;
+    --text-color: #333;
+    --card-bg: white;
+    --header-bg: white;
+    --border-color: #e0e0e0;
+    --primary-color: #4CAF50;
+    --primary-hover: #45a049;
+    --secondary-color: #2196F3;
+    --accent-color: #667eea;
+    --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 5px 15px rgba(0, 0, 0, 0.12);
+    --success-color: #2e7d32;
+    --warning-color: #ffc107;
+    --danger-color: #e74c3c;
+    --info-color: #3498db;
+}
+
+[data-theme="dark"] {
+    /* Cores modo escuro */
+    --bg-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --card-bg: #2d2d2d;
+    --header-bg: #2d2d2d;
+    --border-color: #404040;
+    --primary-color: #4CAF50;
+    --primary-hover: #45a049;
+    --secondary-color: #2196F3;
+    --accent-color: #7c93f5;
+    --accent-gradient: linear-gradient(135deg, #7c93f5 0%, #8a4fb3 100%);
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 5px 15px rgba(0, 0, 0, 0.4);
+    --success-color: #4caf50;
+    --warning-color: #ffb74d;
+    --danger-color: #ef5350;
+    --info-color: #42a5f5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* ============================================
+   CABEÇALHO DE NAVEGAÇÃO
+   ============================================ */
+.header-nav {
+    background-color: var(--header-bg);
+    border-bottom: 2px solid var(--primary-color);
+    box-shadow: var(--shadow);
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+/* Botão de alternar tema */
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    color: var(--text-color);
+}
+
+.theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* ============================================
+   CONTAINER PRINCIPAL
+   ============================================ */
+.main-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.content-box {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+    border: 1px solid var(--border-color);
+}
+
+/* ============================================
+   PÁGINA DE CONTEÚDOS
+   ============================================ */
+h1 {
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+details {
+    background: var(--card-bg);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+details:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+details[open] {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="dark"] details[open] {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+summary {
+    padding: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-color);
+    background-color: rgba(76, 175, 80, 0.1);
+    border-left: 4px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+summary:hover {
+    background-color: rgba(76, 175, 80, 0.15);
+}
+
+ol {
+    padding-left: 40px;
+    margin: 20px 0;
+}
+
+li {
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+ul {
+    padding-left: 30px;
+    margin: 10px 0;
+}
+
+ul li {
+    border-bottom: 1px dotted var(--border-color);
+}
+
+/* Checkboxes */
+label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 0;
+    border-radius: 4px;
+    padding-left: 10px;
+}
+
+label:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] label:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+input[type="checkbox"]:checked + label {
+    color: var(--success-color);
+    font-weight: 500;
+}
+
+/* ============================================
+   CALENDÁRIO
+   ============================================ */
+#mensagem-motivacional {
+    color: var(--text-color);
+    opacity: 0.8;
+    font-style: italic;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#info-progresso {
+    background: var(--accent-gradient);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.stat-box {
+    text-align: center;
+}
+
+#info-progresso span {
+    font-size: 28px;
+    font-weight: bold;
+    display: block;
+}
+
+#info-progresso small {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.dias-semana {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.dia-semana {
+    padding: 10px;
+    text-align: center;
+}
+
+#calendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin: 20px auto;
+}
+
+.dia {
+    padding: 15px;
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    border-radius: 8px;
+    position: relative;
+    font-weight: bold;
+    text-align: center;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--card-bg);
+}
+
+.dia:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+[data-theme="dark"] .dia:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.domingo {
+    color: var(--danger-color);
+}
+
+.hoje {
+    border-color: var(--info-color);
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.marcado {
+    background: linear-gradient(135deg, var(--primary-color), var(--success-color));
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.marcado::after {
+    content: "✓";
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.dia-vazio {
+    visibility: hidden;
+}
+
+/* ============================================
+   PÁGINA INICIAL
+   ============================================ */
+.hero {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.titulo-principal {
+    font-size: 2.2rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.subtitulo {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+.acoes-rapidas {
+    margin: 30px 0;
+}
+
+.titulo-acoes {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.botoes-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.botao-wrapper {
+    flex: 1;
+    min-width: 250px;
+}
+
+.botao-acao {
+    display: block;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.botao-calendario {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.botao-conteudos {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.botao-acao:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.resumo-rapido {
+    background-color: rgba(0, 0, 0, 0.02);
+    padding: 25px;
+    border-radius: 10px;
+    margin: 30px 0;
+    border-left: 4px solid var(--primary-color);
+}
+
+[data-theme="dark"] .resumo-rapido {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.titulo-resumo {
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.lista-resumo {
+    list-style: none;
+}
+
+.item-resumo {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+}
+
+.item-resumo:last-child {
+    border-bottom: none;
+}
+
+.label-resumo {
+    min-width: 120px;
+    color: var(--text-color);
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.valor-resumo {
+    color: var(--text-color);
+}
+
+.destaque {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.card-destaque {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border-top: 3px solid var(--primary-color);
+}
+
+.card-destaque:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.titulo-destaque {
+    color: var(--text-color);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.texto-destaque {
+    color: var(--text-color);
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+.rodape {
+    text-align: center;
+    padding: 25px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    margin-top: 40px;
+    border-radius: 0 0 15px 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.mensagem-rodape {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.link-acao {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-acao:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   ELEMENTOS COMUNS
+   ============================================ */
+.feedback-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    display: none;
+    animation: fadeIn 0.5s;
+    text-align: center;
+    background-color: rgba(76, 175, 80, 0.1);
+    border: 1px solid var(--primary-color);
+    color: var(--success-color);
+}
+
+.frase-dia-box {
+    margin-top: 25px;
+    padding: 15px;
+    background-color: rgba(255, 193, 7, 0.1);
+    border-radius: 10px;
+    border-left: 4px solid var(--warning-color);
+    font-style: italic;
+    text-align: center;
+}
+
+.meta-info-box {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-radius: 8px;
+}
+
+.reset-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: var(--info-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reset-button:hover {
+    background-color: #2980b9;
+}
+
+.sequencia {
+    color: var(--danger-color);
+    font-weight: bold;
+}
+
+.sequencia-longa {
+    color: var(--danger-color);
+    font-weight: bold;
+    animation: pulse 1.5s infinite;
+}
+
+/* ============================================
+   ANIMAÇÕES
+   ============================================ */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   RESPONSIVIDADE
+   ============================================ */
+
+/* Tablet (768px a 1024px) */
+@media (max-width: 1024px) {
+    .main-container {
+        max-width: 95%;
+        padding: 0 15px;
+    }
+    
+    .content-box {
+        padding: 25px;
+    }
+    
+    .titulo-principal {
+        font-size: 2rem;
+    }
+    
+    .botoes-container {
+        gap: 15px;
+    }
+    
+    .botao-wrapper {
+        min-width: 200px;
+    }
+}
+
+/* Mobile grande (481px a 767px) */
+@media (max-width: 767px) {
+    .header-nav {
+        flex-direction: column;
+        padding: 12px 15px;
+        gap: 10px;
+    }
+    
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .nav-link {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .main-container {
+        margin: 20px auto;
+        padding: 0 10px;
+    }
+    
+    .content-box {
+        padding: 20px;
+        border-radius: 12px;
+    }
+    
+    h1, #titulo {
+        font-size: 1.6rem;
+        margin-bottom: 25px;
+    }
+    
+    .titulo-principal {
+        font-size: 1.7rem;
+    }
+    
+    .subtitulo {
+        font-size: 1rem;
+    }
+    
+    /* Calendário responsivo */
+    #info-progresso {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    #info-progresso span {
+        font-size: 24px;
+    }
+    
+    .dias-semana {
+        font-size: 0.85rem;
+        gap: 3px;
+    }
+    
+    .dia-semana {
+        padding: 8px 5px;
+    }
+    
+    .dia {
+        padding: 12px 5px;
+        min-height: 50px;
+        font-size: 0.9rem;
+    }
+    
+    /* Página inicial responsiva */
+    .hero {
+        padding: 15px 0;
+    }
+    
+    .botoes-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .botao-wrapper {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .botao-acao {
+        padding: 16px;
+        font-size: 1rem;
+    }
+    
+    .resumo-rapido {
+        padding: 20px;
+        margin: 20px 0;
+    }
+    
+    .item-resumo {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .label-resumo {
+        min-width: auto;
+    }
+    
+    .destaque {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .card-destaque {
+        padding: 20px;
+    }
+    
+    /* Página de conteúdos responsiva */
+    details {
+        margin-bottom: 10px;
+    }
+    
+    summary {
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+    
+    ol, ul {
+        padding-left: 25px;
+    }
+    
+    li {
+        padding: 6px 0;
+    }
+    
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+}
+
+/* Mobile pequeno (até 480px) */
+@media (max-width: 480px) {
+    .logo {
+        font-size: 20px;
+    }
+    
+    .theme-toggle {
+        font-size: 20px;
+        padding: 6px;
+    }
+    
+    .nav-link {
+        padding: 5px 10px;
+        font-size: 0.85rem;
+    }
+    
+    .main-container {
+        margin: 15px auto;
+        padding: 0 8px;
+    }
+    
+    .content-box {
+        padding: 15px;
+        border-radius: 10px;
+    }
+    
+    h1, #titulo {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+    }
+    
+    .titulo-principal {
+        font-size: 1.5rem;
+    }
+    
+    .subtitulo {
+        font-size: 0.9rem;
+    }
+    
+    /* Calendário mobile pequeno */
+    #info-progresso {
+        padding: 12px 8px;
+    }
+    
+    #info-progresso span {
+        font-size: 20px;
+    }
+    
+    #info-progresso small {
+        font-size: 12px;
+    }
+    
+    .dias-semana {
+        font-size: 0.75rem;
+    }
+    
+    .dia-semana {
+        padding: 6px 3px;
+    }
+    
+    .dia {
+        padding: 8px 3px;
+        min-height: 45px;
+        font-size: 0.8rem;
+    }
+    
+    /* Página inicial mobile pequeno */
+    .titulo-acoes {
+        font-size: 1.3rem;
+    }
+    
+    .botao-acao {
+        padding: 14px;
+        font-size: 0.95rem;
+    }
+    
+    .resumo-rapido {
+        padding: 15px;
+    }
+    
+    .card-destaque {
+        padding: 15px;
+    }
+    
+    .titulo-destaque {
+        font-size: 1.1rem;
+    }
+    
+    /* Página de conteúdos mobile pequeno */
+    summary {
+        padding: 12px;
+        font-size: 1rem;
+    }
+    
+    ol, ul {
+        padding-left: 20px;
+    }
+    
+    label {
+        font-size: 0.9rem;
+    }
+    
+    input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* Rodapé mobile */
+    .rodape {
+        padding: 20px 15px;
+        margin-top: 30px;
+    }
+    
+    .mensagem-rodape {
+        font-size: 1rem;
+    }
+}
+
+/* Mobile muito pequeno (até 360px) */
+@media (max-width: 360px) {
+    .nav-links {
+        gap: 5px;
+    }
+    
+    .nav-link {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .dia {
+        min-height: 40px;
+        padding: 6px 2px;
+        font-size: 0.75rem;
+    }
+    
+    .botao-acao {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+    
+    .titulo-principal {
+        font-size: 1.3rem;
+    }
+    
+    .titulo-acoes {
+        font-size: 1.2rem;
+    }
+}
+
+/* Orientação paisagem em mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .header-nav {
+        padding: 8px 15px;
+    }
+    
+    .content-box {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .dia {
+        min-height: 40px;
+        padding: 8px 3px;
+    }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .dia, .botao-acao, .nav-link {
+        border-width: 1.5px;
+    }
+}

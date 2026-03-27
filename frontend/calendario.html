@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUVEST Prep - Calendário</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- CABEÇALHO DE NAVEGAÇÃO -->
+    <header class="header-nav">
+        <div class="logo">
+            📚 FUVEST Prep
+        </div>
+        <nav class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="calendario.html" class="nav-link active">Calendário</a>
+            <a href="conteudos.html" class="nav-link">Matérias</a>
+            <a href="chat.html" class="nav-link active">chat</a>
+        </nav>
+    </header>
+
+    <!-- CONTAINER PRINCIPAL -->
+    <main class="main-container">
+        <div class="content-box">
+            <h2 id="titulo"></h2>
+            
+            <div id="mensagem-motivacional">
+                <!-- Mensagem motivacional será atualizada pelo JavaScript -->
+            </div>
+            
+            <div id="info-progresso">
+                <div class="stat-box">
+                    <span id="dias-marcados">0</span>
+                    <small>Dias Concluídos</small>
+                </div>
+                <div class="stat-box">
+                    <span id="sequencia-atual" class="sequencia">0</span>
+                    <small>Sequência Atual</small>
+                </div>
+                <div class="stat-box">
+                    <span id="taxa-sucesso">0%</span>
+                    <small>Taxa de Sucesso</small>
+                </div>
+            </div>
+            
+            <div class="dias-semana">
+                <div class="dia-semana">Dom</div>
+                <div class="dia-semana">Seg</div>
+                <div class="dia-semana">Ter</div>
+                <div class="dia-semana">Qua</div>
+                <div class="dia-semana">Qui</div>
+                <div class="dia-semana">Sex</div>
+                <div class="dia-semana">Sáb</div>
+            </div>
+            
+            <div id="calendario"></div>
+            
+            <div id="feedback" class="feedback-message"></div>
+            
+            <div id="frase-dia" class="frase-dia-box">
+                "A consistência é a chave para transformar objetivos em realidade."
+            </div>
+            
+            <div id="meta-info" class="meta-info-box">
+                <p>🎯 <strong>Sua Meta:</strong> Criar um hábito consistente</p>
+                <p>💡 <strong>Dica:</strong> Clique nos dias para marcar como concluídos</p>
+            </div>
+            
+            <button class="reset-button" onclick="resetarCalendario()">🔄 Reiniciar Mês</button>
+        </div>
+    </main>
+
+    <script>
+        const hoje = new Date();
+        const ano = hoje.getFullYear();
+        const mes = hoje.getMonth();
+        const diaHoje = hoje.getDate();
+
+        const titulo = document.getElementById("titulo");
+        const calendario = document.getElementById("calendario");
+        const diasMarcadosEl = document.getElementById("dias-marcados");
+        const sequenciaAtualEl = document.getElementById("sequencia-atual");
+        const taxaSucessoEl = document.getElementById("taxa-sucesso");
+        const mensagemMotivacional = document.getElementById("mensagem-motivacional");
+        const feedbackEl = document.getElementById("feedback");
+        const fraseDia = document.getElementById("frase-dia");
+
+        // Frases motivacionais
+        const frasesMotivacionais = [
+            "Cada dia marcado é um passo em direção ao seu objetivo!",
+            "Consistência transforma sonhos em realidade!",
+            "Um dia de cada vez, você está construindo algo incrível!",
+            "Não é sobre perfeição, é sobre progresso!",
+            "Cada X no calendário conta sua história de superação!",
+            "Continue assim! Você está mais forte do que imagina!",
+            "Pequenos passos diários levam a grandes conquistas!",
+            "Você não está apenas marcando dias, está criando um hábito!"
+        ];
+
+        const frasesConquista = [
+            "🎉 Excelente! Mais um dia conquistado!",
+            "💪 Você está arrasando! Continue assim!",
+            "✨ Incrível! Seu comprometimento inspira!",
+            "🏆 Vitória! Mais um passo na direção certa!",
+            "🔥 Fogo na roupa! Você está imparável!",
+            "🌟 Brilhante! Sua dedicação está dando frutos!",
+            "🚀 Decolando! Seu progresso é notável!",
+            "💎 Diamante sendo lapidado! Continue polindo!"
+        ];
+
+        const frasesDoDia = [
+            "A disciplina é a ponte entre metas e realizações.",
+            "Grandes coisas nunca vêm de zonas de conforto.",
+            "O sucesso é a soma de pequenos esforços repetidos dia após dia.",
+            "Não espere por condições perfeitas. Comece de onde você está.",
+            "A consistência é o que transforma o comum em extraordinário.",
+            "Cada dia é uma nova oportunidade para ser melhor que ontem.",
+            "O progresso acontece fora da sua zona de conforto.",
+            "Você não precisa ser grande para começar, mas precisa começar para ser grande."
+        ];
+
+        // Escolhe frase do dia aleatória
+        fraseDia.textContent = `"${frasesDoDia[Math.floor(Math.random() * frasesDoDia.length)]}"`;
+
+        const nomesMeses = [
+            "Janeiro", "Fevereiro", "Março", "Abril",
+            "Maio", "Junho", "Julho", "Agosto",
+            "Setembro", "Outubro", "Novembro", "Dezembro"
+        ];
+
+        titulo.textContent = nomesMeses[mes] + " " + ano;
+
+        const totalDias = new Date(ano, mes + 1, 0).getDate();
+        const primeiroDiaSemana = new Date(ano, mes, 1).getDay();
+
+        let diasMarcados = 0;
+        let maiorSequencia = 0;
+        let sequenciaAtual = 0;
+
+        // Atualiza estatísticas
+        function atualizarEstatisticas() {
+            diasMarcados = 0;
+            sequenciaAtual = 0;
+            maiorSequencia = 0;
+            let tempSequencia = 0;
+            
+            for (let dia = 1; dia <= totalDias; dia++) {
+                const chave = `${ano}-${mes}-${dia}`;
+                if (localStorage.getItem(chave) === "true") {
+                    diasMarcados++;
+                    tempSequencia++;
+                    sequenciaAtual = tempSequencia;
+                    if (tempSequencia > maiorSequencia) {
+                        maiorSequencia = tempSequencia;
+                    }
+                } else {
+                    tempSequencia = 0;
+                }
+            }
+            
+            diasMarcadosEl.textContent = diasMarcados;
+            sequenciaAtualEl.textContent = sequenciaAtual;
+            
+            // Adiciona animação para sequências longas
+            if (sequenciaAtual >= 3) {
+                sequenciaAtualEl.classList.add('sequencia-longa');
+            } else {
+                sequenciaAtualEl.classList.remove('sequencia-longa');
+            }
+            
+            // Calcula taxa de sucesso
+            const taxaSucesso = Math.round((diasMarcados / diaHoje) * 100);
+            taxaSucessoEl.textContent = (taxaSucesso > 100 ? 100 : taxaSucesso) + "%";
+            
+            // Atualiza mensagem motivacional
+            atualizarMensagemMotivacional();
+        }
+
+        // Atualiza mensagem motivacional baseada no progresso
+        function atualizarMensagemMotivacional() {
+            let mensagem;
+            
+            if (diasMarcados === 0) {
+                mensagem = "🌟 Comece sua jornada hoje! O primeiro passo é o mais importante!";
+            } else if (diasMarcados === 1) {
+                mensagem = "🎯 Ótimo começo! Um dia de cada vez você chega lá!";
+            } else if (diasMarcados < 5) {
+                mensagem = "🔥 Continue assim! Você está criando impulso!";
+            } else if (sequenciaAtual >= 7) {
+                mensagem = "🚀 Uma semana completa! Você está formando um hábito sólido!";
+            } else if (taxaSucessoEl.textContent === "100%") {
+                mensagem = "🏆 Perfeição! Você está 100% neste mês!";
+            } else {
+                mensagem = frasesMotivacionais[Math.floor(Math.random() * frasesMotivacionais.length)];
+            }
+            
+            mensagemMotivacional.textContent = mensagem;
+        }
+
+        // Mostra feedback temporário
+        function mostrarFeedback(mensagem) {
+            feedbackEl.textContent = mensagem;
+            feedbackEl.style.display = 'block';
+            feedbackEl.style.backgroundColor = '#d4edda';
+            feedbackEl.style.color = '#155724';
+            
+            setTimeout(() => {
+                feedbackEl.style.display = 'none';
+            }, 3000);
+        }
+
+        // Cria o calendário
+        function criarCalendario() {
+            calendario.innerHTML = '';
+            
+            // Preenche dias vazios no início do mês
+            for (let i = 0; i < primeiroDiaSemana; i++) {
+                const divVazia = document.createElement("div");
+                divVazia.classList.add("dia-vazio");
+                calendario.appendChild(divVazia);
+            }
+            
+            for (let dia = 1; dia <= totalDias; dia++) {
+                const div = document.createElement("div");
+                div.classList.add("dia");
+                div.textContent = dia;
+                
+                // Adiciona classe para domingos
+                const diaSemana = new Date(ano, mes, dia).getDay();
+                if (diaSemana === 0) {
+                    div.classList.add("domingo");
+                }
+                
+                // Destaca o dia de hoje
+                if (dia === diaHoje) {
+                    div.classList.add("hoje");
+                    div.innerHTML = `<strong>${dia}<br><small>Hoje</small></strong>`;
+                }
+                
+                const chave = `${ano}-${mes}-${dia}`;
+                
+                // Verifica se o dia já foi marcado
+                if (localStorage.getItem(chave) === "true") {
+                    div.classList.add("marcado");
+                }
+                
+                // Adiciona evento de clique
+                div.addEventListener("click", function() {
+                    const estavaMarcado = div.classList.contains("marcado");
+                    
+                    div.classList.toggle("marcado");
+                    
+                    if (div.classList.contains("marcado")) {
+                        localStorage.setItem(chave, "true");
+                        if (!estavaMarcado) {
+                            mostrarFeedback(frasesConquista[Math.floor(Math.random() * frasesConquista.length)]);
+                        }
+                    } else {
+                        localStorage.removeItem(chave);
+                        mostrarFeedback("⚡ Dia desmarcado. Sem problemas, você pode tentar novamente amanhã!");
+                    }
+                    
+                    atualizarEstatisticas();
+                });
+                
+                calendario.appendChild(div);
+            }
+            
+            // Atualiza estatísticas iniciais
+            atualizarEstatisticas();
+        }
+
+        // Função para resetar o calendário
+        function resetarCalendario() {
+            if (confirm("Tem certeza que deseja reiniciar todo o progresso deste mês?")) {
+                // Remove todos os dias marcados deste mês
+                for (let dia = 1; dia <= totalDias; dia++) {
+                    const chave = `${ano}-${mes}-${dia}`;
+                    localStorage.removeItem(chave);
+                }
+                
+                // Recria o calendário
+                criarCalendario();
+                
+                // Mostra mensagem de recomeço
+                mensagemMotivacional.textContent = "🔄 Novo começo! Dessa vez você vai ainda mais longe!";
+                mostrarFeedback("Calendário reiniciado com sucesso! Hora de começar uma nova jornada!");
+            }
+        }
+
+        // Inicializa o calendário
+        criarCalendario();
+
+        // Atualiza frase do dia periodicamente
+        setInterval(() => {
+            fraseDia.textContent = `"${frasesDoDia[Math.floor(Math.random() * frasesDoDia.length)]}"`;
+        }, 30000);
+
+        // Alternar tema
+    const themeToggle = document.createElement('button');
+    themeToggle.className = 'theme-toggle';
+    themeToggle.innerHTML = '🌙';
+    themeToggle.title = 'Alternar tema claro/escuro';
+    
+    document.querySelector('.nav-links').appendChild(themeToggle);
+    
+    // Verificar tema salvo ou preferência do sistema
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const savedTheme = localStorage.getItem('theme') || 
+                      (prefersDark.matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeToggle.innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
+    
+    // Alternar tema ao clicar
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        themeToggle.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('theme', newTheme);
+    });
+    
+    // Atualizar tema quando a preferência do sistema mudar
+    prefersDark.addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            const newTheme = e.matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            themeToggle.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+    });
+
+    </script>
+</body>
+</html>
