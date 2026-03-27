@@ -313,8 +313,8 @@
     </main>
 
     <script>
-        // Configuração - Agora usando o backend local
-        const API_URL = 'https://backend-chat-fuvest.onrender.com';
+        // Configuração - Usando backend no Render
+        const API_URL = 'https://backend-chat-fuvest.onrender.com/chat';
         const HEALTH_URL = 'https://backend-chat-fuvest.onrender.com/health';
         
         const chatMessages = document.getElementById('chatMessages');
@@ -332,15 +332,16 @@
             try {
                 const response = await fetch(HEALTH_URL);
                 if (response.ok) {
+                    const data = await response.json();
                     serverStatus.className = 'server-status online';
-                    statusMessage.textContent = '✅ Servidor conectado - Grok AI pronto!';
+                    statusMessage.textContent = '✅ Servidor conectado - Groq AI pronto!';
                     return true;
                 } else {
                     throw new Error('Servidor não respondeu corretamente');
                 }
             } catch (error) {
                 serverStatus.className = 'server-status offline';
-                statusMessage.textContent = '❌ Servidor offline - Execute: cd backend && python main.py';
+                statusMessage.textContent = '❌ Servidor offline - Verifique o backend no Render';
                 return false;
             }
         }
@@ -416,7 +417,7 @@
                     },
                     body: JSON.stringify({
                         messages: conversationHistory,
-                        model: 'grok-4.1-fast',
+                        model: 'llama-3.3-70b-versatile',
                         temperature: 0.7,
                         max_tokens: 1500
                     })
@@ -446,12 +447,12 @@
                 let errorMsg = '❌ Desculpe, tive um problema. ';
                 
                 if (error.message.includes('ECONNREFUSED') || error.message.includes('Failed to fetch')) {
-                    errorMsg += 'Não foi possível conectar ao servidor. Verifique se o backend está rodando com: python backend/main.py';
+                    errorMsg += 'Não foi possível conectar ao servidor. Verifique se o backend está online no Render.';
                     updateServerStatus();
                 } else if (error.message.includes('504')) {
                     errorMsg += 'O servidor demorou muito para responder. Tente novamente.';
                 } else if (error.message.includes('500')) {
-                    errorMsg += 'Erro interno no servidor. Verifique o console do backend.';
+                    errorMsg += 'Erro interno no servidor. Verifique os logs do Render.';
                 } else {
                     errorMsg += error.message;
                 }
@@ -473,7 +474,7 @@
             // Verifica se o servidor está online antes de enviar
             const isServerOnline = await updateServerStatus();
             if (!isServerOnline) {
-                addMessage('❌ Servidor offline. Por favor, inicie o backend com: cd backend && python main.py', false);
+                addMessage('❌ Servidor offline. Verifique se o backend está funcionando no Render.', false);
                 return;
             }
             
@@ -535,7 +536,7 @@
         updateServerStatus();
         setInterval(updateServerStatus, 10000);
         
-        // Alternar tema (igual ao das outras páginas)
+        // Alternar tema
         const themeToggle = document.createElement('button');
         themeToggle.className = 'theme-toggle';
         themeToggle.innerHTML = '🌙';
@@ -557,7 +558,7 @@
             localStorage.setItem('theme', newTheme);
         });
         
-        // Adicionar botão de limpar conversa (opcional)
+        // Adicionar botão de limpar conversa
         const clearButton = document.createElement('button');
         clearButton.textContent = '🗑️ Limpar conversa';
         clearButton.style.cssText = `
