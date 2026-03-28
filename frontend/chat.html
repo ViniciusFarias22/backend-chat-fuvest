@@ -2,11 +2,11 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FUVEST Prep - Chat de Estudos</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilos específicos para o chat simples - RESPONSIVO */
+        /* Estilos específicos para o chat simples */
         .chat-simples {
             display: flex;
             flex-direction: column;
@@ -22,7 +22,6 @@
             padding: 20px;
             color: white;
             text-align: center;
-            flex-shrink: 0;
         }
         
         .chat-header-simples h2 {
@@ -72,7 +71,6 @@
         
         .message-content {
             word-wrap: break-word;
-            word-break: break-word;
             line-height: 1.5;
             font-size: 0.95rem;
         }
@@ -96,7 +94,6 @@
             border-top: 1px solid var(--border-color);
             display: flex;
             gap: 10px;
-            flex-shrink: 0;
         }
         
         .chat-input-simples input {
@@ -109,7 +106,6 @@
             font-size: 14px;
             outline: none;
             transition: all 0.3s ease;
-            min-width: 0;
         }
         
         .chat-input-simples input:focus {
@@ -126,8 +122,6 @@
             cursor: pointer;
             font-weight: 500;
             transition: all 0.2s;
-            white-space: nowrap;
-            flex-shrink: 0;
         }
         
         .chat-input-simples button:hover:not(:disabled) {
@@ -169,9 +163,6 @@
             font-size: 0.8rem;
             color: var(--text-color);
             transition: all 0.2s;
-            white-space: normal;
-            word-break: break-word;
-            text-align: left;
         }
         
         .sugestao-simples:hover {
@@ -248,373 +239,11 @@
             justify-content: center;
         }
         
-        /* ============================================
-           RESPONSIVIDADE DO CHAT
-           ============================================ */
-        
-        /* Tablet (768px a 1024px) */
-        @media (max-width: 1024px) {
-            .chat-simples {
-                height: 500px;
-            }
-            
-            .chat-header-simples {
-                padding: 16px;
-            }
-            
-            .chat-header-simples h2 {
-                font-size: 1.3rem;
-            }
-            
-            .chat-messages-simples {
-                padding: 15px;
-            }
-            
-            .message-simples {
-                max-width: 90%;
-            }
-            
-            .message-content {
-                font-size: 0.9rem;
-            }
-        }
-        
-        /* Mobile grande (481px a 767px) */
-        @media (max-width: 767px) {
-            .chat-simples {
-                height: 480px;
-                border-radius: 12px;
-            }
-            
-            .chat-header-simples {
-                padding: 14px;
-            }
-            
-            .chat-header-simples h2 {
-                font-size: 1.2rem;
-            }
-            
-            .chat-header-simples p {
-                font-size: 0.75rem;
-            }
-            
-            .chat-messages-simples {
-                padding: 12px;
-                gap: 10px;
-            }
-            
-            .message-simples {
-                max-width: 95%;
-            }
-            
-            .message-content {
-                font-size: 0.85rem;
-                padding: 8px 12px !important;
-            }
-            
-            .message-simples.user .message-content {
-                padding: 8px 12px !important;
-            }
-            
-            .message-simples.bot .message-content {
-                padding: 8px 12px !important;
-            }
-            
-            .chat-input-simples {
-                padding: 12px;
-                gap: 8px;
-            }
-            
-            .chat-input-simples input {
-                padding: 10px 14px;
-                font-size: 13px;
-            }
-            
-            .chat-input-simples button {
-                padding: 10px 18px;
-                font-size: 13px;
-            }
-            
-            .sugestoes-simples {
-                margin-top: 15px;
-                padding: 12px;
-            }
-            
-            .sugestoes-simples h3 {
-                font-size: 0.85rem;
-                margin-bottom: 10px;
-            }
-            
-            .sugestoes-grid-simples {
-                gap: 6px;
-            }
-            
-            .sugestao-simples {
-                padding: 5px 10px;
-                font-size: 0.75rem;
-            }
-            
-            .status-text {
-                font-size: 0.7rem;
-                margin-top: 8px;
-            }
-        }
-        
-        /* Mobile pequeno (até 480px) */
-        @media (max-width: 480px) {
-            .chat-simples {
-                height: 450px;
-                border-radius: 10px;
-            }
-            
-            .chat-header-simples {
-                padding: 12px;
-            }
-            
-            .chat-header-simples h2 {
-                font-size: 1.1rem;
-            }
-            
-            .chat-header-simples p {
-                font-size: 0.7rem;
-            }
-            
-            .chat-messages-simples {
-                padding: 10px;
-                gap: 8px;
-            }
-            
-            .message-content {
-                font-size: 0.8rem;
-                padding: 6px 10px !important;
-            }
-            
-            .message-simples.user .message-content {
-                padding: 6px 10px !important;
-            }
-            
-            .message-simples.bot .message-content {
-                padding: 6px 10px !important;
-            }
-            
-            .chat-input-simples {
-                padding: 10px;
-                gap: 6px;
-            }
-            
-            .chat-input-simples input {
-                padding: 8px 12px;
-                font-size: 12px;
-                border-radius: 20px;
-            }
-            
-            .chat-input-simples button {
-                padding: 8px 14px;
-                font-size: 12px;
-                border-radius: 20px;
-            }
-            
-            .sugestoes-simples {
-                margin-top: 12px;
-                padding: 10px;
-                border-radius: 10px;
-            }
-            
-            .sugestoes-simples h3 {
-                font-size: 0.8rem;
-                margin-bottom: 8px;
-            }
-            
-            .sugestoes-grid-simples {
-                gap: 5px;
-            }
-            
-            .sugestao-simples {
-                padding: 4px 8px;
-                font-size: 0.7rem;
-                border-radius: 16px;
-            }
-            
-            .status-text {
-                font-size: 0.65rem;
-                margin-top: 6px;
-            }
-        }
-        
-        /* Mobile muito pequeno (até 360px) */
-        @media (max-width: 360px) {
-            .chat-simples {
-                height: 420px;
-            }
-            
-            .chat-header-simples {
-                padding: 10px;
-            }
-            
-            .chat-header-simples h2 {
-                font-size: 1rem;
-            }
-            
-            .chat-header-simples p {
-                font-size: 0.65rem;
-            }
-            
-            .chat-messages-simples {
-                padding: 8px;
-                gap: 6px;
-            }
-            
-            .message-content {
-                font-size: 0.75rem;
-                padding: 5px 8px !important;
-            }
-            
-            .message-simples.user .message-content {
-                padding: 5px 8px !important;
-            }
-            
-            .message-simples.bot .message-content {
-                padding: 5px 8px !important;
-            }
-            
-            .chat-input-simples {
-                padding: 8px;
-                gap: 5px;
-            }
-            
-            .chat-input-simples input {
-                padding: 7px 10px;
-                font-size: 11px;
-            }
-            
-            .chat-input-simples button {
-                padding: 7px 12px;
-                font-size: 11px;
-            }
-            
-            .sugestoes-simples {
-                margin-top: 10px;
-                padding: 8px;
-            }
-            
-            .sugestoes-simples h3 {
-                font-size: 0.75rem;
-            }
-            
-            .sugestao-simples {
-                padding: 3px 6px;
-                font-size: 0.65rem;
-            }
-        }
-        
-        /* Orientação paisagem em mobile */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .chat-simples {
-                height: 380px;
-            }
-            
-            .chat-header-simples {
-                padding: 8px;
-            }
-            
-            .chat-header-simples h2 {
-                font-size: 1rem;
-            }
-            
-            .chat-messages-simples {
-                padding: 8px;
-            }
-            
-            .message-content {
-                font-size: 0.75rem;
-                padding: 5px 8px !important;
-            }
-            
-            .chat-input-simples {
-                padding: 8px;
-            }
-            
-            .sugestoes-simples {
-                display: none;
-            }
-        }
-        
-        /* Ajustes para telas com alta densidade de pixels */
-        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-            .chat-simples {
-                border-width: 0.5px;
-            }
-            
-            .message-content {
-                border-width: 0.5px;
-            }
-        }
-        
-        /* Botões de ação no chat */
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .theme-toggle, .clear-chat-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 24px;
-            padding: 8px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-color);
-            transition: all 0.2s;
-        }
-        
-        .theme-toggle:hover, .clear-chat-btn:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-        
-        [data-theme="dark"] .theme-toggle:hover,
-        [data-theme="dark"] .clear-chat-btn:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .clear-chat-btn {
-            font-size: 18px;
-            padding: 6px 12px;
-            border-radius: 20px;
-            background-color: var(--bg-color);
-            border: 1px solid var(--border-color);
-        }
-        
-        /* Ajustes responsivos para os botões do header */
-        @media (max-width: 767px) {
-            .nav-links {
-                gap: 8px;
-            }
-            
-            .theme-toggle {
-                font-size: 20px;
-                padding: 6px;
-            }
-            
-            .clear-chat-btn {
-                font-size: 14px;
-                padding: 4px 10px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .nav-links {
-                gap: 5px;
-            }
-            
-            .clear-chat-btn {
-                font-size: 12px;
-                padding: 3px 8px;
-            }
+        @media (max-width: 768px) {
+            .chat-simples { height: 500px; }
+            .message-simples { max-width: 95%; }
+            .sugestoes-grid-simples { flex-direction: column; }
+            .sugestao-simples { text-align: left; }
         }
     </style>
 </head>
@@ -684,9 +313,9 @@
     </main>
 
     <script>
-        // Configuração - Agora usando o backend local
-        const API_URL = 'http://localhost:8000/chat';
-        const HEALTH_URL = 'http://localhost:8000/health';
+        // Configuração - URL do backend em produção
+        const API_URL = 'https://backend-chat-fuvest.onrender.com/chat';
+        const HEALTH_URL = 'https://backend-chat-fuvest.onrender.com/health';
         
         const chatMessages = document.getElementById('chatMessages');
         const userInput = document.getElementById('userInput');
@@ -711,7 +340,7 @@
                 }
             } catch (error) {
                 serverStatus.className = 'server-status offline';
-                statusMessage.textContent = '❌ Servidor offline - Execute: cd backend && python main.py';
+                statusMessage.textContent = '❌ Servidor offline - Verifique a conexão';
                 return false;
             }
         }
@@ -813,21 +442,8 @@
                 
             } catch (error) {
                 console.error('Erro detalhado:', error);
-                
-                let errorMsg = '❌ Desculpe, tive um problema. ';
-                
-                if (error.message.includes('ECONNREFUSED') || error.message.includes('Failed to fetch')) {
-                    errorMsg += 'Não foi possível conectar ao servidor. Verifique se o backend está rodando com: python backend/main.py';
-                    updateServerStatus();
-                } else if (error.message.includes('504')) {
-                    errorMsg += 'O servidor demorou muito para responder. Tente novamente.';
-                } else if (error.message.includes('500')) {
-                    errorMsg += 'Erro interno no servidor. Verifique o console do backend.';
-                } else {
-                    errorMsg += error.message;
-                }
-                
-                addMessage(errorMsg, false);
+                addMessage('❌ Desculpe, tive um problema ao processar sua mensagem. Tente novamente.', false);
+                updateServerStatus();
             }
         }
         
@@ -840,13 +456,6 @@
             
             const message = userInput.value.trim();
             if (!message) return;
-            
-            // Verifica se o servidor está online antes de enviar
-            const isServerOnline = await updateServerStatus();
-            if (!isServerOnline) {
-                addMessage('❌ Servidor offline. Por favor, inicie o backend com: cd backend && python main.py', false);
-                return;
-            }
             
             isProcessing = true;
             sendButton.disabled = true;
@@ -882,7 +491,6 @@
                         </div>
                     </div>
                 `;
-                addMessage('✨ Conversa reiniciada! Como posso ajudar?', false);
             }
         }
         
@@ -912,15 +520,7 @@
         themeToggle.innerHTML = '🌙';
         themeToggle.title = 'Alternar tema';
         
-        // Botão de limpar conversa
-        const clearButton = document.createElement('button');
-        clearButton.className = 'clear-chat-btn';
-        clearButton.textContent = '🗑️ Limpar';
-        clearButton.title = 'Limpar conversa';
-        clearButton.onclick = clearConversation;
-        
         document.querySelector('.nav-links').appendChild(themeToggle);
-        document.querySelector('.nav-links').appendChild(clearButton);
         
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
         const savedTheme = localStorage.getItem('theme') || (prefersDark.matches ? 'dark' : 'light');
@@ -935,6 +535,22 @@
             themeToggle.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
             localStorage.setItem('theme', newTheme);
         });
+        
+        // Botão de limpar conversa
+        const clearButton = document.createElement('button');
+        clearButton.textContent = '🗑️ Limpar';
+        clearButton.style.cssText = `
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        `;
+        clearButton.onclick = clearConversation;
+        document.querySelector('.nav-links').appendChild(clearButton);
     </script>
 </body>
 </html>
