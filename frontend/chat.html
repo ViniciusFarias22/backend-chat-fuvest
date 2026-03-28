@@ -2,11 +2,15 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>FUVEST Prep - Chat de Estudos</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilos específicos para o chat simples */
+        /* ============================================
+           ESTILOS DO CHAT - COMPLETAMENTE RESPONSIVO
+           ============================================ */
+        
+        /* Container principal do chat */
         .chat-simples {
             display: flex;
             flex-direction: column;
@@ -17,11 +21,13 @@
             border: 1px solid var(--border-color);
         }
         
+        /* Cabeçalho do chat */
         .chat-header-simples {
             background: var(--accent-gradient);
             padding: 20px;
             color: white;
             text-align: center;
+            flex-shrink: 0;
         }
         
         .chat-header-simples h2 {
@@ -35,6 +41,7 @@
             opacity: 0.9;
         }
         
+        /* Área de mensagens */
         .chat-messages-simples {
             flex: 1;
             overflow-y: auto;
@@ -45,6 +52,7 @@
             background-color: var(--bg-color);
         }
         
+        /* Estilo das mensagens */
         .message-simples {
             max-width: 85%;
             animation: fadeIn 0.3s ease;
@@ -71,6 +79,7 @@
         
         .message-content {
             word-wrap: break-word;
+            word-break: break-word;
             line-height: 1.5;
             font-size: 0.95rem;
         }
@@ -88,12 +97,14 @@
             margin: 5px 0;
         }
         
+        /* Input do chat */
         .chat-input-simples {
             padding: 15px;
             background-color: var(--card-bg);
             border-top: 1px solid var(--border-color);
             display: flex;
             gap: 10px;
+            flex-shrink: 0;
         }
         
         .chat-input-simples input {
@@ -106,6 +117,7 @@
             font-size: 14px;
             outline: none;
             transition: all 0.3s ease;
+            min-width: 0;
         }
         
         .chat-input-simples input:focus {
@@ -122,6 +134,8 @@
             cursor: pointer;
             font-weight: 500;
             transition: all 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
         .chat-input-simples button:hover:not(:disabled) {
@@ -134,6 +148,7 @@
             cursor: not-allowed;
         }
         
+        /* Sugestões */
         .sugestoes-simples {
             margin-top: 20px;
             padding: 15px;
@@ -163,6 +178,9 @@
             font-size: 0.8rem;
             color: var(--text-color);
             transition: all 0.2s;
+            white-space: normal;
+            word-break: break-word;
+            text-align: left;
         }
         
         .sugestao-simples:hover {
@@ -172,6 +190,7 @@
             transform: translateY(-1px);
         }
         
+        /* Indicador de digitação */
         .typing-indicator-simples {
             display: flex;
             gap: 4px;
@@ -239,11 +258,333 @@
             justify-content: center;
         }
         
-        @media (max-width: 768px) {
-            .chat-simples { height: 500px; }
-            .message-simples { max-width: 95%; }
-            .sugestoes-grid-simples { flex-direction: column; }
-            .sugestao-simples { text-align: left; }
+        /* ============================================
+           RESPONSIVIDADE COMPLETA
+           ============================================ */
+        
+        /* Tablet (768px - 1024px) */
+        @media (max-width: 1024px) {
+            .chat-simples {
+                height: 500px;
+            }
+            
+            .chat-header-simples {
+                padding: 16px;
+            }
+            
+            .chat-header-simples h2 {
+                font-size: 1.3rem;
+            }
+            
+            .chat-messages-simples {
+                padding: 15px;
+            }
+            
+            .message-simples {
+                max-width: 90%;
+            }
+            
+            .message-content {
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Mobile Grande (481px - 767px) */
+        @media (max-width: 767px) {
+            .chat-simples {
+                height: 480px;
+                border-radius: 12px;
+            }
+            
+            .chat-header-simples {
+                padding: 14px;
+            }
+            
+            .chat-header-simples h2 {
+                font-size: 1.2rem;
+            }
+            
+            .chat-header-simples p {
+                font-size: 0.75rem;
+            }
+            
+            .chat-messages-simples {
+                padding: 12px;
+                gap: 10px;
+            }
+            
+            .message-simples {
+                max-width: 95%;
+            }
+            
+            .message-content {
+                font-size: 0.85rem;
+                padding: 8px 12px !important;
+            }
+            
+            .chat-input-simples {
+                padding: 12px;
+                gap: 8px;
+            }
+            
+            .chat-input-simples input {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+            
+            .chat-input-simples button {
+                padding: 10px 18px;
+                font-size: 13px;
+            }
+            
+            .sugestoes-simples {
+                margin-top: 15px;
+                padding: 12px;
+            }
+            
+            .sugestoes-simples h3 {
+                font-size: 0.85rem;
+                margin-bottom: 10px;
+            }
+            
+            .sugestoes-grid-simples {
+                gap: 6px;
+            }
+            
+            .sugestao-simples {
+                padding: 5px 10px;
+                font-size: 0.75rem;
+            }
+            
+            .status-text {
+                font-size: 0.7rem;
+                margin-top: 8px;
+            }
+        }
+        
+        /* Mobile Pequeno (até 480px) */
+        @media (max-width: 480px) {
+            .chat-simples {
+                height: 450px;
+                border-radius: 10px;
+            }
+            
+            .chat-header-simples {
+                padding: 12px;
+            }
+            
+            .chat-header-simples h2 {
+                font-size: 1.1rem;
+            }
+            
+            .chat-header-simples p {
+                font-size: 0.7rem;
+            }
+            
+            .chat-messages-simples {
+                padding: 10px;
+                gap: 8px;
+            }
+            
+            .message-content {
+                font-size: 0.8rem;
+                padding: 6px 10px !important;
+            }
+            
+            .chat-input-simples {
+                padding: 10px;
+                gap: 6px;
+            }
+            
+            .chat-input-simples input {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .chat-input-simples button {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+            
+            .sugestoes-simples {
+                margin-top: 12px;
+                padding: 10px;
+            }
+            
+            .sugestoes-simples h3 {
+                font-size: 0.8rem;
+                margin-bottom: 8px;
+            }
+            
+            .sugestoes-grid-simples {
+                gap: 5px;
+            }
+            
+            .sugestao-simples {
+                padding: 4px 8px;
+                font-size: 0.7rem;
+            }
+            
+            .status-text {
+                font-size: 0.65rem;
+                margin-top: 6px;
+            }
+        }
+        
+        /* Mobile Muito Pequeno (até 360px) */
+        @media (max-width: 360px) {
+            .chat-simples {
+                height: 420px;
+            }
+            
+            .chat-header-simples {
+                padding: 10px;
+            }
+            
+            .chat-header-simples h2 {
+                font-size: 1rem;
+            }
+            
+            .chat-header-simples p {
+                font-size: 0.65rem;
+            }
+            
+            .chat-messages-simples {
+                padding: 8px;
+                gap: 6px;
+            }
+            
+            .message-content {
+                font-size: 0.75rem;
+                padding: 5px 8px !important;
+            }
+            
+            .chat-input-simples {
+                padding: 8px;
+                gap: 5px;
+            }
+            
+            .chat-input-simples input {
+                padding: 7px 10px;
+                font-size: 11px;
+            }
+            
+            .chat-input-simples button {
+                padding: 7px 12px;
+                font-size: 11px;
+            }
+            
+            .sugestoes-simples {
+                margin-top: 10px;
+                padding: 8px;
+            }
+            
+            .sugestoes-simples h3 {
+                font-size: 0.75rem;
+            }
+            
+            .sugestao-simples {
+                padding: 3px 6px;
+                font-size: 0.65rem;
+            }
+        }
+        
+        /* Orientação paisagem */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .chat-simples {
+                height: 380px;
+            }
+            
+            .chat-header-simples {
+                padding: 8px;
+            }
+            
+            .chat-header-simples h2 {
+                font-size: 1rem;
+            }
+            
+            .chat-messages-simples {
+                padding: 8px;
+            }
+            
+            .message-content {
+                font-size: 0.75rem;
+                padding: 5px 8px !important;
+            }
+            
+            .chat-input-simples {
+                padding: 8px;
+            }
+            
+            .sugestoes-simples {
+                display: none;
+            }
+        }
+        
+        /* Botões do header */
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .theme-toggle, .clear-chat-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            padding: 8px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+        
+        .theme-toggle:hover, .clear-chat-btn:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        [data-theme="dark"] .theme-toggle:hover,
+        [data-theme="dark"] .clear-chat-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .clear-chat-btn {
+            font-size: 18px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        @media (max-width: 767px) {
+            .nav-links {
+                gap: 8px;
+            }
+            
+            .theme-toggle {
+                font-size: 20px;
+                padding: 6px;
+            }
+            
+            .clear-chat-btn {
+                font-size: 14px;
+                padding: 4px 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-links {
+                gap: 5px;
+            }
+            
+            .clear-chat-btn {
+                font-size: 12px;
+                padding: 3px 8px;
+            }
         }
     </style>
 </head>
@@ -323,7 +664,6 @@
         const serverStatus = document.getElementById('serverStatus');
         const statusMessage = document.getElementById('statusMessage');
         
-        // Histórico da conversa
         let conversationHistory = [];
         let isProcessing = false;
         
@@ -333,67 +673,62 @@
                 const response = await fetch(HEALTH_URL);
                 if (response.ok) {
                     serverStatus.className = 'server-status online';
-                    statusMessage.textContent = '✅ Servidor conectado - Grok AI pronto!';
+                    statusMessage.textContent = '✅ Servidor conectado - IA pronta!';
                     return true;
                 } else {
-                    throw new Error('Servidor não respondeu corretamente');
+                    throw new Error('Servidor não respondeu');
                 }
             } catch (error) {
                 serverStatus.className = 'server-status offline';
-                statusMessage.textContent = '❌ Servidor offline - Verifique a conexão';
+                statusMessage.textContent = '⚠️ Modo offline - Usando respostas simuladas';
                 return false;
             }
         }
         
-        // Função para formatar texto com markdown básico
+        // Respostas simuladas quando o servidor estiver offline
+        function getMockResponse(message) {
+            const msg = message.toLowerCase();
+            
+            if (msg.includes('função quadrática') || msg.includes('funcao quadratica')) {
+                return "📐 **Função Quadrática**\n\nUma função quadrática tem a forma f(x) = ax² + bx + c, onde a ≠ 0.\n\n**Elementos:**\n• Concavidade: a > 0 (para cima), a < 0 (para baixo)\n• Vértice: xv = -b/(2a), yv = -Δ/(4a)\n• Raízes: fórmula de Bhaskara\n\n**Exemplo:** f(x) = x² - 5x + 6 → raízes x = 2 e x = 3";
+            }
+            
+            if (msg.includes('porcentagem')) {
+                return "✏️ **Questão de Porcentagem**\n\n**Enunciado:** Um produto de R$ 200,00 sofreu aumento de 15%. Qual o novo preço?\n\n**Resolução:**\n1. Aumento = 15% de 200 = (15/100) × 200 = R$ 30\n2. Novo preço = 200 + 30 = **R$ 230,00**\n\n💡 **Dica:** Para calcular porcentagem, multiplique o valor pela porcentagem e divida por 100.";
+            }
+            
+            if (msg.includes('primeira guerra')) {
+                return "🌍 **Primeira Guerra Mundial (1914-1918)**\n\n**Causas:** Nacionalismo, imperialismo, paz armada.\n**Estopim:** Assassinato do arquiduque Francisco Ferdinando.\n**Fases:** Guerra de movimento (1914) → Trincheiras (1915-1917) → Fase final (1918).\n**Consequências:** Tratado de Versalhes, 10 milhões de mortos.";
+            }
+            
+            return "📚 **Resposta do Assistente**\n\nRecebi sua pergunta. O servidor está em modo offline no momento, mas estou aqui para ajudar!\n\nVocê pode perguntar sobre:\n• Função quadrática\n• Porcentagem\n• Primeira Guerra Mundial\n• Cinemática\n• Redação\n• Mitose e Meiose\n• Balanceamento químico\n• Célula animal e vegetal\n\nQual desses temas você gostaria de explorar?";
+        }
+        
         function formatText(text) {
             let formatted = text
-                // Negrito
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                // Itálico
                 .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                // Listas não ordenadas
                 .replace(/^• (.*?)$/gm, '<li>$1</li>')
-                .replace(/(<li>.*?<\/li>)/s, '<ul>$1</ul>')
-                // Listas ordenadas
-                .replace(/^\d+\. (.*?)$/gm, '<li>$1</li>')
-                // Quebras de linha
                 .replace(/\n/g, '<br>');
-            
             return formatted;
         }
         
-        // Função para adicionar mensagem
         function addMessage(content, isUser) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message-simples ${isUser ? 'user' : 'bot'}`;
-            
             const messageContent = document.createElement('div');
             messageContent.className = 'message-content';
-            
-            if (isUser) {
-                messageContent.innerHTML = content.replace(/\n/g, '<br>');
-            } else {
-                messageContent.innerHTML = formatText(content);
-            }
-            
+            messageContent.innerHTML = isUser ? content.replace(/\n/g, '<br>') : formatText(content);
             messageDiv.appendChild(messageContent);
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
         
-        // Indicador de digitação
         function showTyping() {
             const typingDiv = document.createElement('div');
             typingDiv.className = 'message-simples bot';
             typingDiv.id = 'typingIndicator';
-            typingDiv.innerHTML = `
-                <div class="message-content">
-                    <div class="typing-indicator-simples">
-                        <span></span><span></span><span></span>
-                    </div>
-                </div>
-            `;
+            typingDiv.innerHTML = `<div class="message-content"><div class="typing-indicator-simples"><span></span><span></span><span></span></div></div>`;
             chatMessages.appendChild(typingDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
@@ -403,17 +738,13 @@
             if (typing) typing.remove();
         }
         
-        // Enviar para o backend
         async function sendToBackend(message) {
             try {
-                // Adiciona mensagem do usuário ao histórico
                 conversationHistory.push({ role: 'user', content: message });
                 
                 const response = await fetch(API_URL, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         messages: conversationHistory,
                         model: 'grok-4.1-fast',
@@ -422,35 +753,24 @@
                     })
                 });
                 
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.detail || `Erro ${response.status}`);
-                }
+                if (!response.ok) throw new Error('Erro na API');
                 
                 const data = await response.json();
                 const botResponse = data.response;
-                
-                // Adiciona resposta ao histórico
                 conversationHistory.push({ role: 'assistant', content: botResponse });
-                
-                // Limita histórico para não ficar muito grande (últimas 20 mensagens)
-                if (conversationHistory.length > 20) {
-                    conversationHistory = conversationHistory.slice(-20);
-                }
-                
+                if (conversationHistory.length > 20) conversationHistory = conversationHistory.slice(-20);
                 addMessage(botResponse, false);
                 
             } catch (error) {
-                console.error('Erro detalhado:', error);
-                addMessage('❌ Desculpe, tive um problema ao processar sua mensagem. Tente novamente.', false);
-                updateServerStatus();
+                console.error('Erro:', error);
+                const mockResponse = getMockResponse(message);
+                addMessage(mockResponse, false);
             }
         }
         
-        // Processar mensagem
         async function handleMessage() {
             if (isProcessing) {
-                addMessage('⏳ Aguarde a resposta anterior ser processada...', false);
+                addMessage('⏳ Aguarde a resposta anterior...', false);
                 return;
             }
             
@@ -474,35 +794,16 @@
             userInput.focus();
         }
         
-        // Limpar conversa
         function clearConversation() {
-            if (confirm('Tem certeza que deseja limpar toda a conversa?')) {
+            if (confirm('Limpar toda a conversa?')) {
                 conversationHistory = [];
-                chatMessages.innerHTML = `
-                    <div class="message-simples bot">
-                        <div class="message-content">
-                            👋 Olá! Sou seu assistente de estudos.<br><br>
-                            Posso ajudar com:
-                            <br>• 📚 Explicar conteúdos escolares
-                            <br>• ✏️ Criar questões para você resolver
-                            <br>• 💡 Dar dicas de estudo
-                            <br><br>
-                            Como posso te ajudar hoje?
-                        </div>
-                    </div>
-                `;
+                chatMessages.innerHTML = `<div class="message-simples bot"><div class="message-content">👋 Olá! Sou seu assistente de estudos.<br><br>Como posso te ajudar hoje?</div></div>`;
             }
         }
         
-        // Eventos
         sendButton.addEventListener('click', handleMessage);
-        userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !isProcessing) {
-                handleMessage();
-            }
-        });
+        userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter' && !isProcessing) handleMessage(); });
         
-        // Sugestões
         document.querySelectorAll('.sugestao-simples').forEach(btn => {
             btn.addEventListener('click', () => {
                 userInput.value = btn.getAttribute('data-pergunta');
@@ -510,21 +811,22 @@
             });
         });
         
-        // Verificar status do servidor a cada 10 segundos
         updateServerStatus();
         setInterval(updateServerStatus, 10000);
         
-        // Alternar tema
         const themeToggle = document.createElement('button');
         themeToggle.className = 'theme-toggle';
         themeToggle.innerHTML = '🌙';
-        themeToggle.title = 'Alternar tema';
-        
         document.querySelector('.nav-links').appendChild(themeToggle);
+        
+        const clearButton = document.createElement('button');
+        clearButton.className = 'clear-chat-btn';
+        clearButton.textContent = '🗑️ Limpar';
+        clearButton.onclick = clearConversation;
+        document.querySelector('.nav-links').appendChild(clearButton);
         
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
         const savedTheme = localStorage.getItem('theme') || (prefersDark.matches ? 'dark' : 'light');
-        
         document.documentElement.setAttribute('data-theme', savedTheme);
         themeToggle.innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
         
@@ -535,22 +837,6 @@
             themeToggle.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
             localStorage.setItem('theme', newTheme);
         });
-        
-        // Botão de limpar conversa
-        const clearButton = document.createElement('button');
-        clearButton.textContent = '🗑️ Limpar';
-        clearButton.style.cssText = `
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 5px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            margin-left: 10px;
-        `;
-        clearButton.onclick = clearConversation;
-        document.querySelector('.nav-links').appendChild(clearButton);
     </script>
 </body>
 </html>
